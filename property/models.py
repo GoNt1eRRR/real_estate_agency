@@ -8,11 +8,13 @@ class Complaint(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        related_name='complaints',
         verbose_name='Кто жаловался'
     )
     flat = models.ForeignKey(
         'property.Flat',
         on_delete=models.CASCADE,
+        related_name='complaints_about',
         verbose_name="Квартира, на которую пожаловались"
     )
     text = models.TextField(verbose_name="Текст жалобы")
@@ -22,9 +24,6 @@ class Complaint(models.Model):
 
 
 class Flat(models.Model):
-    owner = models.CharField('ФИО владельца', max_length=200)
-    owners_phonenumber = models.CharField('Номер владельца', max_length=20)
-    owner_pure_phone = PhoneNumberField('Нормализованный номер телефона', blank=True)
     new_building = models.BooleanField(
         null=True,
         verbose_name='Новостройка')
